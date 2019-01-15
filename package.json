@@ -1,4 +1,13 @@
 {
     "name": "query-matic",
-    "version": "0.0.1"
+    "version": "0.0.1",
+    "description": "Query component for programmatic react-apollo queries.",
+    "license": "MIT",
+    "repository": "isaiahgrey93/query-matic",
+    "main": "index.js",
+    "keywords": [
+      "react",
+      "graphql",
+      "apollo"
+    ]
 }
