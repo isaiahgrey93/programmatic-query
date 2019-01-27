@@ -7,6 +7,25 @@ Alternative `Query` component for `react-apollo` to make manually fired queries 
 
 See the example use case different between `react-apollo` and `programmatic-query` [here](https://github.com/isaiahgrey93/programmatic-query/blob/master/example/src/App.tsx).
 
+## Setup
+
+**Install**
+
+```bash
+yarn add programmatic-query
+# or
+npm install programmatic-query
+```
+
+**Usage**
+
+```javascript
+import { Query } from "programmatic-query";
+```
+
+- [Use like `Query` component from `react-apollo` ](https://github.com/isaiahgrey93/programmatic-query#render-prop---result-only)
+- [Use to manually fire queries with extended render prop argument](https://github.com/isaiahgrey93/programmatic-query#render-prop---with-query-handler)
+
 ## `Query` Props
 
 The follow props are identical in use to the `Query` component in `react-apollo`:
