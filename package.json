@@ -1,13 +1,25 @@
 {
-  "name": "query-matic",
+  "name": "programmatic-query",
   "version": "0.0.1",
   "description": "Query component for programmatic react-apollo queries.",
   "license": "MIT",
-  "repository": "isaiahgrey93/query-matic",
+  "repository": "isaiahgrey93/programmatic-query",
   "main": "index.js",
   "keywords": [
     "react",
     "graphql",
     "apollo"
-  ]
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.0.5",
+    "@types/react": "^16.7.21",
+    "apollo-client": "^2.4.12",
+    "graphql": "^14.1.1",
+    "react": "^16.7.0",
+    "react-apollo": "^2.4.0",
+    "typescript": "^3.2.4"
+  }
 }

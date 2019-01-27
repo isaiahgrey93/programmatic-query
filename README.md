@@ -1,18 +1,87 @@
-# query-matic
+# programmatic-query
 
-![](https://img.shields.io/npm/v/query-matic.svg?colorB=%232ecc71)
-![](https://img.shields.io/bundlephobia/min/query-matic.svg?colorB=%233498db)
+![](https://img.shields.io/npm/v/programmatic-query.svgcolorB=%232ecc71)
 
-## Props
+## `Query` Props
 
-| Name         | Required | Value                                                                                                    | Description                                                                                                                                              |
-| ------------ | -------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children     | ✅       | `(result: QueryResult, query?: (variables: TVariables) => React.ReactNode`                               | A function returning the UI you want to render based on your query result.                                                                               |
-| query        | ✅       | `DocumentNode`                                                                                           | A GraphQL document that consists of a single query to be sent down to the server.                                                                        |
-| variables    | -        | `TVariables`                                                                                             | A map going from variable name to variable value, where the variables are used within the GraphQL query.                                                 |
-| onError      | -        | `(error: ApolloError) => void`                                                                           | A callback executed in the event of an error.                                                                                                            |
-| onCompleted  | -        | `(data: TData = {}) => void`                                                                             | A callback executed once your query successfully completes.                                                                                              |
-| errorPolicy  | -        | `"none"` · `"ignore"` · `"all"`                                                                          | Specifies the [ErrorPolicy](https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-config-options-errorPolicy) to be used for this query |
-| fetchPolicy  | -        | `"cache-first"` · `"cache-and-network"` · `"network-only"` · `"cache-only"` · `"no-cache"` · `"standby"` | Specifies the [FetchPolicy](https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-config-options-fetchPolicy) to be used for this query |
-| fetchResults | -        | `boolean`                                                                                                | Whether or not to fetch results                                                                                                                          |
-| metadata     | -        | `any`                                                                                                    | Arbitrary metadata stored in the store with this query. Designed for debugging, developer tools, etc.                                                    |
+The follow props are identical in use to the `Query` component in `react-apollo`:
+
+- `skip`
+- `query`
+- `variables`
+- `onError`
+- `onCompleted`
+- `errorPolicy`
+- `fetchPolicy`
+
+[Read more about these props here.](https://www.apollographql.com/docs/react/essentials/queries.html#props)
+
+### `children` - `function`
+
+A render prop to return a UI based on the query executed on component mount.
+
+Configurable to allow the execution of the query to be handled by a seperate event other than the component mount.
+
+To switch between the **_result only_** and **_with query handler_** behavior, pass a parameter name for the query handler to allow the query to be fired when the handler is invoked. Otherwise to use the default behavior, omit the second render prop argument and the query will be fired on component mount.
+
+#### Render Prop - **RESULT ONLY**
+
+Query is fired immediately upon component mount with any passed configuration to the Query component:
+
+```jsx
+const App = () => (
+  <Query
+    query={gql`
+      {
+        allTodos {
+          id
+          text
+        }
+      }
+    `}
+  >
+    {({ data, error, loading, networkStatus }) => (
+      <Component>
+        {data && data}
+        {error && error}
+        {loading && "Loading.."}
+      </Component>
+    )}
+  </Query>
+);
+```
+
+See `children` prop [here](https://www.apollographql.com/docs/react/api/react-apollo.html#query-props)
+
+#### Render Prop - **WITH QUERY HANDLER**
+
+```jsx
+const App = () => (
+  <Query
+    query={gql`
+      {
+        allTodos {
+          id
+          text
+        }
+      }
+    `}
+  >
+    {({ data, error, loading, networkStatus }, fetchAllTodos) => (
+      <Component>
+        {data && data}
+        {error && error}
+        {loading && "Loading.."}
+        <Button onPress={() => fetchAllTodos()}>Fetch All Todos</Button>
+      </Component>
+    )}
+  </Query>
+);
+```
+
+### `fetchOnMount` - `boolean`
+
+Specify if the query is fired on component mount even when a query handler is passed.
+Useful to easily fetch data on load, and allow a refetch via the query handler.
+
+Uses the `variables` passed as the query prop as the `variable` argument.
