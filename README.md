@@ -1,6 +1,11 @@
+![](https://img.shields.io/npm/v/programmatic-query.svg?colorB=%232ecc71)
+![](https://img.shields.io/bundlephobia/min/programmatic-query.svg?colorB=%233498db)
+
 # programmatic-query
 
-![](https://img.shields.io/npm/v/programmatic-query.svgcolorB=%232ecc71)
+Alternative `Query` component for `react-apollo` to make manually fired queries less painful.
+
+See the example use case different between `react-apollo` and `programmatic-query` [here](https://github.com/isaiahgrey93/programmatic-query/blob/master/example/src/App.tsx).
 
 ## `Query` Props
 
