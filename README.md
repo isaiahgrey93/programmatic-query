@@ -59,7 +59,7 @@ See `children` prop [here](https://www.apollographql.com/docs/react/api/react-ap
 
 Configurable to allow the execution of the query to be handled by a separate event other than the component mount.
 
-To switch between the **_default behavior_** and **_manual query handler_** behavior, pass a parameter name for the query handler as the second argument to `children`, to allow the query to be fired when the handler is invoked. This will prevent the default component mount fetch.
+To switch between the **_default_** behavior and **_manual query handler_** behavior, pass a parameter name for the query handler as the second argument to `children`, to allow the query to be fired when the handler is invoked. This will prevent the default component mount fetch.
 To use the default behavior simply omit the second render prop argument and the query will be fired on component mount.
 
 #### Render Prop - **DEFAULT EXAMPLE**
