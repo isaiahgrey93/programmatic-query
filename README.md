@@ -43,12 +43,26 @@ The follow props are identical in use to the `Query` component in `react-apollo`
 ### `children` - `function`
 
 A render prop to return a UI based on the query executed on component mount.
+Uses the `variables` passed as the query prop as the `variable` argument.
 
-Configurable to allow the execution of the query to be handled by a seperate event other than the component mount.
+```jsx
+({ data, error, loading, networkStatus }) => (
+  <Component>
+    {data && data}
+    {error && error}
+    {loading && "Loading..."}
+  </Component>
+)
+```
 
-To switch between the **_result only_** and **_with query handler_** behavior, pass a parameter name for the query handler to allow the query to be fired when the handler is invoked. Otherwise to use the default behavior, omit the second render prop argument and the query will be fired on component mount.
+See `children` prop [here](https://www.apollographql.com/docs/react/api/react-apollo.html#query-props)
 
-#### Render Prop - **RESULT ONLY**
+Configurable to allow the execution of the query to be handled by a separate event other than the component mount.
+
+To switch between the **_default behavior_** and **_manual query handler_** behavior, pass a parameter name for the query handler as the second argument to `children`, to allow the query to be fired when the handler is invoked. This will prevent the default component mount fetch.
+To use the default behavior simply omit the second render prop argument and the query will be fired on component mount.
+
+#### Render Prop - **DEFAULT EXAMPLE**
 
 Query is fired immediately upon component mount with any passed configuration to the Query component:
 
@@ -68,16 +82,14 @@ const App = () => (
       <Component>
         {data && data}
         {error && error}
-        {loading && "Loading.."}
+        {loading && "Loading..."}
       </Component>
     )}
   </Query>
 );
 ```
 
-See `children` prop [here](https://www.apollographql.com/docs/react/api/react-apollo.html#query-props)
-
-#### Render Prop - **WITH QUERY HANDLER**
+#### Render Prop - **MANUAL QUERY HANDLER EXAMPLE**
 
 ```jsx
 const App = () => (
@@ -91,12 +103,12 @@ const App = () => (
       }
     `}
   >
-    {({ data, error, loading, networkStatus }, fetchAllTodos) => (
+    {({ data, error, loading, networkStatus }, fetchQuery) => (
       <Component>
         {data && data}
         {error && error}
-        {loading && "Loading.."}
-        <Button onPress={() => fetchAllTodos()}>Fetch All Todos</Button>
+        {loading && "Loading..."}
+        <Button onPress={() => fetchQuery()}>Fetch All Todos</Button>
       </Component>
     )}
   </Query>
@@ -105,7 +117,4 @@ const App = () => (
 
 ### `fetchOnMount` - `boolean`
 
-Specify if the query is fired on component mount even when a query handler is passed.
-Useful to easily fetch data on load, and allow a refetch via the query handler.
-
-Uses the `variables` passed as the query prop as the `variable` argument.
+When using the **_manual query handler_** version of the "children" render prop function above, you may re-enable the default fetch on component mount by setting this value to true. This prop has no effect when using the **_default behavior_** version of the "children" function. Useful to easily fetch data on load, and allow a refetch via the query handler.
